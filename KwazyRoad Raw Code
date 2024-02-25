@@ -1,0 +1,380 @@
+//Variable Declarations 
+float y1 = random(-170,-50); //The y coordinate of the cone
+float x1 = random(150,450);//x coordinate of the cone
+float s1 = random(3,6);//speed of the cone
+
+float y2 = random(-170,-60); //The y coordinate of the rock
+float x2 = random(150,450);//x coordinate of the rock
+float s2 = random(3,6);//speed of the rock
+
+float y3 = random(-170,-50); //The y coordinate of the blue car
+float x3 = random(150,450);//x coordinate of the blue car
+float s3 = random(3,6);//speed of the blue car
+
+float y4 = 0; // y coordinate of the trees on the left side
+float x4 = 20; //x coordinate of the trees on the left side
+
+float x42 = 540; //x coordinate of the trees on the right side
+float y42 = 10; //y coordinate of the trees on the right side
+
+float x5 = 298; // x coordinate for red car
+float y5 = 390; //y coordinate for red car
+float s5 = 5; //initial speed of red car
+
+float y6 = random(-170,-50); //The y coordinate of the yellow car
+float x6 = random(150,450);//x coordinate of the yellow car
+float s6 = random(3,6);//speed of the yellow car
+
+PImage play; //play button
+PImage help; //help button
+PImage background; //background 
+PImage title; //title font
+PImage back; //back button
+PImage rightkey; //right arrow key image
+PImage leftkey; //left arrow key image
+PImage car1; //red car
+PImage car2; //blue car
+PImage cone; //cone image
+PImage rock1; //rock image
+PImage tree; //tree image
+PImage car3; //yellow car
+PImage Instructions1; //Intructions title 
+PImage Instructions2; //Instructions description 
+PImage GameOver; //GAME OVER image
+PImage YouWin; //YOU WIN image
+PImage Menu; //main menu button 
+int stage = 1; //number of stages
+int Score = 0; //counting of score
+int Life = 3; //counting of lives
+
+color black = color(0); //RGB color black
+color white = color(255); //RGB color white
+
+//Setup of images and canvas 
+void setup(){
+  size(640,480); //size of canvas
+  background = loadImage("background2.png");
+  play = loadImage("playbutton2.png");
+  help = loadImage("help.png");
+  title = loadImage("title2.png");
+  back = loadImage("back.png");
+  leftkey = loadImage("leftkey.png");
+  rightkey = loadImage("rightkey.png");
+  car1 = loadImage("car1.png");
+  car2 = loadImage("car2.png");
+  car3 = loadImage("car3.png");
+  cone = loadImage("cone.png");
+  rock1 = loadImage("Rock1.png");
+  tree = loadImage("tree.png");
+  Instructions1 = loadImage("Instructions1.png");
+  Instructions2 = loadImage("Instructions2.1.png");
+  GameOver = loadImage("GAMEOVER.png");
+  YouWin = loadImage("YOUWIN!.png");
+  Menu = loadImage("Menu.png");
+}
+
+//Draw of entire game and stages
+void draw(){
+/*stage 1 = Menu
+  stage 2 = Intruction Screen 
+  stage 3 = Game Screen
+  stage 4 = Resetting Score, position, and speed of every sprite in the game when switching back to the main menu
+  stage 5 = Lose Screen
+  stage 6 = Win Screen
+  stage 7 = Resetting Score, position, and speed of every sprite in the game before clicking the play button to play the game again after losing or winning*/
+  
+  //Game Stages: Menu and Intruction Screen
+  if(stage == 1){ //MAIN MENU SCREEN
+    image(background,0,0,640,480); //background
+    image(play,190,300,100,50); //play button
+    image(help,355,300,100,50); //help button
+    image(title,63,20,550,350); //title of the game
+    if((mousePressed==true) && (mouseX > 355 && mouseX < 455 && mouseY > 300 && mouseY < 350)){ //changes stage to Intruction Screen
+      stage = 2;
+    } //closing if mouse clicks help button
+    if((mousePressed==true) && (mouseX > 190 && mouseX < 290 && mouseY > 300 && mouseY < 350)){ //changes stage to Game Screen
+      stage = 3;
+  } //closing if mouse clicks play button
+} //finish for stage 1
+if(stage == 2){ //INSTRUCTION SCREEN
+  image(background,0,0,640,480);
+  image(back,550,10,80,40);
+  image(leftkey,460,400,50,50);
+  image(rightkey,520,400,50,50);
+  image(car1,400,400,40,60);
+  image(car2,340,400,40,60);
+  image(car3,280,400,40,60);
+  image(rock1,200,400,60,60);
+  image(cone,130,400,50,60);
+  image(tree,60,385,60,80);
+  image(Instructions1,195,5,250,50);
+  image(Instructions2,20,65,595,310);
+  if((mousePressed==true) && (mouseX > 550 && mouseX < 630 && mouseY > 10 && mouseY < 50)){ //changes stage to Menu Screen
+      stage = 4;
+  }//closing if mouse clicks back button
+}//finish for stage 2
+
+if(stage == 4){ //takes you to main menu screen, rests all the coordinates and speeds of all sprites within the game
+  stage = 1;
+  y1 = random(-170,-50);
+  x1 = random(150,450);
+  s1 = random(3,6);
+  y2 = random(-170,-60);
+  x2 = random(150,450);
+  s2 = random(3,6);
+  y3 = random(-170,-50);
+  x3 = random(150,450);
+  s3 = random(3,6);
+  y6 = random(-170,-50);
+  x6 = random(150,450);
+  s6 = random(3,6);
+  y4 = -200;
+  x4 = 20;
+  x42 = 540;
+  y42 = 10;
+  x5 = 298;
+  y5 = 390;
+  s5 = 3;
+  Score = 0;
+  Life = 3;
+} //finish if main menu is shown after clicking back button
+
+if(stage == 7){ //takes you to the game screen after clicking the play button on the winning or losing screen: Rests all the coordinates and speeds of all sprites within the game
+  stage = 3;
+  y1 = random(-170,-50);
+  x1 = random(150,450);
+  s1 = random(3,6);
+  y2 = random(-170,-60);
+  x2 = random(150,450);
+  s2 = random(3,6);
+  y3 = random(-170,-50);
+  x3 = random(150,450);
+  s3 = random(3,6);
+  y6 = random(-170,-50);
+  x6 = random(150,450);
+  s6 = random(3,6);
+  y4 = -200;
+  x4 = 20;
+  x42 = 540;
+  y42 = 10;
+  x5 = 298;
+  y5 = 390;
+  s5 = 3;
+  Score = 0;
+  Life = 3;
+}//finish if game screen is shown after clicking the play button located at the win or lose screen
+  
+
+/*PLAYSCREENCOMMANDS*/
+if(stage == 3){ //GAME SCREEN
+image(background,0,0,640,480);
+image(car1,x5,y5,50,80);
+image(cone,x1,y1,45,60);
+  y1 = y1 + s1; //speeed of fall for cone
+  if(y1>480){ //brings back the cone to the top of the screen once it reaches the end of the screen. It randomizes its position and speed. Once the cone reaches the end of the screen, the speed of movement of the red car increases by 1. Score increases by 1. 
+    y1 = random(-170,-50);
+    x1 = random(150,450);
+    s1 = random(3,6);
+    s5 = s5 + 1;
+    Score = Score + 1;
+  } //finish if cone reaches end of screen
+  image(rock1,x2,y2,60,60); //brings back the rock to the top of the screen once it reaches the end of the screen. It randomizes its position and speed. Once the rock reaches the end of the screen, the speed of movement of the red car increases by 1. Score increases by 1. 
+  y2 = y2 + s2;
+  if(y2>480){
+    y2 = random(-170,-50);
+    x2 = random(150,450);
+    s2 = random(3,6);
+    s5 = s5 + 1;
+    Score = Score + 1;
+  } //finish if rock reaches end of screen
+  image(car2,x3,y3,50,80); //brings back the blue car to the top of the screen once it reaches the end of the screen. It randomizes its position and speed. Once the blue car reaches the end of the screen, the speed of movement of the red car increases by 1. Score increases by 1. 
+  y3 = y3 + s3;
+  if(y3>480){
+    y3 = random(-170,-50);
+    x3 = random(150,450);
+    s3 = random(3,6);
+    s5 = s5 + 1;
+    Score = Score + 1;
+  } //finish if blue car reaches end of screen
+  image(car3,x6,y6,50,80); //brings back the yellow car to the top of the screen once it reaches the end of the screen. It randomizes its position and speed. Once the yellow car reaches the end of the screen, the speed of movement of the red car increases by 1. Score increases by 1. 
+  y6 = y6 + s6;
+  if(y6>480){
+    y6 = random(-170,-50);
+    x6 = random(150,450);
+    s6 = random(3,6);
+    s5 = s5 + 1;
+    Score = Score + 1;
+  } //finish if yellow car reaches end of screen
+  
+  //Abundance of Trees that move down on the left and right sides of the screen 
+  image(tree,x4,y4,90,100);
+  image(tree,x4,y4-110,90,100);
+  image(tree,x4,y4-220,90,100);
+  image(tree,x4,y4-340,90,100);
+  image(tree,x4,y4-450,90,100);
+  image(tree,x4,y4-560,90,100);
+  image(tree,x4,y4-670,90,100);
+  image(tree,x4,y4-780,90,100);
+  image(tree,x4,y4-890,90,100);
+  image(tree,x4,y4-1000,90,100);
+  image(tree,x4,y4-1110,90,100);
+  image(tree,x4,y4-1220,90,100);
+  image(tree,x4,y4-1330,90,100);
+  image(tree,x4,y4-1440,90,100);
+  image(tree,x4,y4-1550,90,100);
+  image(tree,x4,y4-1660,90,100);
+  image(tree,x4,y4-1770,90,100);
+  image(tree,x4,y4-1880,90,100);
+  image(tree,x4,y4-1990,90,100);
+  image(tree,x4,y4-2100,90,100);
+  image(tree,x4,y4-2210,90,100);
+  image(tree,x4,y4+110,90,100);
+  image(tree,x4,y4+220,90,100);
+  image(tree,x4,y4+340,90,100);
+  image(tree,x4+520,y4,90,100);
+  image(tree,x4+520,y4+110,90,100);
+  image(tree,x4+520,y4+220,90,100);
+  image(tree,x4+520,y4+340,90,100);
+  image(tree,x4+520,y4-110,90,100);
+  image(tree,x4+520,y4-220,90,100);
+  image(tree,x4+520,y4-340,90,100);
+  image(tree,x4+520,y4-450,90,100);
+  image(tree,x4+520,y4-560,90,100);
+  image(tree,x4+520,y4-670,90,100);
+  image(tree,x4+520,y4-780,90,100);
+  image(tree,x4+520,y4-890,90,100);
+  image(tree,x4+520,y4-1000,90,100);
+  image(tree,x4+520,y4-1110,90,100);
+  image(tree,x4+520,y4-1220,90,100);
+  image(tree,x4+520,y4-1330,90,100);
+  image(tree,x4+520,y4-1440,90,100);
+  image(tree,x4+520,y4-1550,90,100);
+  image(tree,x4+520,y4-1660,90,100);
+  image(tree,x4+520,y4-1770,90,100);
+  image(tree,x4+520,y4-1880,90,100);
+  image(tree,x4+520,y4-1990,90,100);
+  image(tree,x4+520,y4-2100,90,100);
+  image(tree,x4+520,y4-2210,90,100);
+  image(tree,x4+520,y4-2320,90,100);
+  image(tree,x4+520,y4-2430,90,100);
+  image(tree,x4+520,y4-2540,90,100);
+  image(tree,x4+520,y4-2650,90,100);
+  image(tree,x4+520,y4-2760,90,100);
+  image(tree,x4+520,y4-2870,90,100);
+  image(tree,x4+520,y4-2980,90,100);
+  y4 = y4 + 1; //speed of fall for  trees
+  
+  //Once the trees reach the end of the screen, they reappear on the top of the screen
+  if(y4>520){
+    y4 = -10; 
+    x4 = 20;    
+  }
+  if(y4+110>520){
+    y4 = -10; 
+    x4 = 20;    
+  }
+  if(y4+220>520){
+    y4 = -10; 
+    x4 = 20;    
+  }
+  if(y4+340>520){
+    y4 = -10; 
+    x4 = 20;    
+  }
+  
+ //Score System block, located on the bottom left corner of the screen
+  stroke(black);
+  strokeWeight(2);
+  fill(white);
+  rect(25,448,70,30);
+  textSize(15);
+  fill(black);
+  text("Score:",30,470);
+  text(Score,75,470);
+  //Life System block, located on the bottom left corner of the screen
+  fill(white);
+  rect(544,448,70,30);
+  fill(black);
+  text("Lives:",549,470);
+  text(Life,594,470);
+  
+ if(x5<120){ //stops red car from leaving the road through the left 
+    x5 = 120 + 2;
+ }
+  if(x5+50>514){  //stops red car from leaving the road through the right 
+    x5 = 510 - 52;
+  }
+  //Collision of obstacles and red car
+  if(x1+30>x5 && x1<x5+65 && y1+61>y5 && y1<=y5+1){ //randomizes the cone's position on the road and speed of fall. Once the cone collides with the red car, the red car's speed will decrease by 2 and the player's life will decrease by 1. 
+    y1 = random(-170,-50);
+    x1 = random(150,450);
+    s1 = random(3,6);
+    s5 = s5 - 2;
+    Life = Life - 1;
+  } //finish if cone collides with the red car
+  if(x2+35>x5 && x2<x5+60 && y2+61>y5 && y2<=y5+1){ //randomizes the rocks's position on the road and speed of fall. Once the rock collides with the red car, the red car's speed will decrease by 2 and the player's life will decrease by 1. 
+    y2 = random(-170,-50);
+    x2 = random(150,450);
+    s2 = random(3,6);
+    s5 = s5 - 2;
+    Life = Life - 1;
+  } //finish if rock collides with the red car
+  if(x3+30>x5 && x3<x5+60 && y3+75>y5 && y3<=y5+1){ //randomizes the blue car's position on the road and speed of fall. Once the blue car collides with the red car, the red car's speed will decrease by 2 and the player's life will decrease by 1. 
+    y3 = random(-170,-50);
+    x3 = random(150,450);
+    s3 = random(3,6);
+    s5 = s5 - 2;
+    Life = Life - 1;
+  } //finish if blue car collides with the red car
+  if(x6+35>x5 && x6<x5+60 && y6+75>y5 && y6<=y5+1){ //randomizes the yellow car's position on the road and speed of fall. Once the yellow car collides with the red car, the red car's speed will decrease by 2 and the player's life will decrease by 1. 
+    y6 = random(-170,-50);
+    x6 = random(150,450);
+    s6 = random(3,6);
+    s5 = s5 - 2;
+    Life = Life - 1;
+  } //finish if yellow car collides with the red car
+  
+if(Life == 0){ //if you reach 0 lives in the life system (or you hit 3 obstacles) you lose the game and you get directed to the lose screen (Game Over screen)
+  stage = 5;
+} //finish if you get directed to the lose screen
+
+if(Score == 55){ //if you reach 55 points in the score system (or dodge 25 obstacles) you win the game and you get directed to the win screen 
+  stage = 6;
+} //finish if you get directed to the win screen
+} //Finish Stage 3
+
+if(stage == 5){ //lose screen
+  image(background,0,0,640,480);
+  image(GameOver,75,30,500,200);
+  image(Menu,248,250,150,55);
+  image(play,273,325,100,50);
+  if((mousePressed == true) && (mouseX > 248 && mouseX < 398 && mouseY > 250 && mouseY < 305)){ //main menu button which switches from lose screen into Main screen
+     stage = 4;
+} //finish if you click main menu button on the lose screen
+  if((mousePressed == true) && (mouseX > 273 && mouseX < 373 && mouseY > 325 && mouseY < 375)){ //play button which allows you to play the game again after losing the game
+    stage = 7;
+  } //finish if you click play button on the lose screen 
+} //Finish Stage 5
+if(stage == 6){ //win screen 
+  image(background,0,0,640,480);
+  image(YouWin,75,30,500,200);
+  image(Menu,248,250,150,55);
+  image(play,273,325,100,50);
+   if((mousePressed == true) && (mouseX > 248 && mouseX < 398 && mouseY > 250 && mouseY < 305)){ //main menu button which switches from win screen into Main screen
+     stage = 4;
+} //finish if you click main menu button on the win screen
+  if((mousePressed == true) && (mouseX > 273 && mouseX < 373 && mouseY > 325 && mouseY < 375)){ //play button which allows you to play the game again after winning the game
+    stage = 7;
+  } //finish if you click play button on the win screen
+} //finish stage 6
+} //finish draw()
+
+void keyPressed(){ //movement for red car
+if((key == CODED) && (keyCode == RIGHT)){ //Right movement
+x5=x5+s5;
+}
+if((key == CODED) && (keyCode == LEFT)){ //Left movement
+x5=x5-s5;
+}
+} //Finish keyPressed()
+     
